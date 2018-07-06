@@ -1,0 +1,9 @@
+# -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
+
+def build(bld):
+    
+    obj = bld.create_ns3_program('mymanet-routing-compare',
+                                 ['wifi', 'dsr', 'dsdv', 'aodv', 'min-routing','olsr', 'flow-monitor','internet', 'applications'])
+    obj.source = 'mymanet-routing-compare.cc'
+    
+

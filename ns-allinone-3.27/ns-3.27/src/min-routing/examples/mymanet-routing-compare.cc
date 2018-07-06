@@ -222,7 +222,7 @@ main (int argc, char *argv[])
   std::endl;
   out.close ();
 
-  int nSinks = 10;
+  int nSinks = 15;
   double txp = 7.5;
 
   experiment.Run (nSinks, txp, CSVfileName);
@@ -238,16 +238,16 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
 
   int nWifis = 30;//originl:50
 
-  double TotalTime = 100.0;
-  std::string rate ("2048bps");
+  double TotalTime = 200.0;
+  std::string rate ("4096Bps");
   std::string phyMode ("DsssRate11Mbps");
   std::string tr_name ("manet-routing-compare");
-  int nodeSpeed = 30; //in m/s
+  int nodeSpeed = 20; //in m/s
   int nodePause = 0; //in s
   double Range=250;    //the range of the communication,in m, I defined it.
   m_protocolName = "protocol";
 
-  Config::SetDefault  ("ns3::OnOffApplication::PacketSize",StringValue ("64"));
+  Config::SetDefault  ("ns3::OnOffApplication::PacketSize",StringValue ("512"));
   Config::SetDefault ("ns3::OnOffApplication::DataRate",  StringValue (rate));
   Config::SetDefault ("ns3::RangePropagationLossModel::MaxRange",DoubleValue(Range));   //I add!
   Config::SetDefault ("ns3::min_routing::RoutingProtocol::R",DoubleValue(Range));     //I add!
@@ -368,8 +368,8 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
 
       Ptr<UniformRandomVariable> var = CreateObject<UniformRandomVariable> ();
       ApplicationContainer temp = onoff1.Install (adhocNodes.Get (i + nSinks));
-      temp.Start (Seconds (var->GetValue (20.0,21.0)));
-      temp.Stop (Seconds (70));//I modified it!!
+      temp.Start (Seconds (var->GetValue (30.0,31.0)));
+      temp.Stop (Seconds (180));//I modified it!!
     }
 
 
@@ -382,12 +382,16 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
   std::string sNodeSpeed = ss2.str ();
 
   std::stringstream ss3;
-  ss3 << nodePause;
-  std::string sNodePause = ss3.str ();
+  ss3<< Range;
+  std::string sRange =ss3.str();
 
   std::stringstream ss4;
-  ss4 << rate;
-  std::string sRate = ss4.str ();
+  ss4 << nodePause;
+  std::string sNodePause = ss4.str ();
+
+  std::stringstream ss5;
+  ss5 << rate;
+  std::string sRate = ss5.str ();
 
   NS_LOG_INFO ("Configure Tracing.");
   tr_name = tr_name + "_" + m_protocolName +"_" + nodes + "nodes_" + sNodeSpeed + "speed_" + sNodePause + "pause_" + sRate + "rate";
@@ -414,7 +418,7 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
   flowmon->CheckForLostPackets ();
   Ptr<Ipv4FlowClassifier> classifier = DynamicCast<Ipv4FlowClassifier> (flowmonHelper.GetClassifier ());
   std::map<FlowId, FlowMonitor::FlowStats> stats = flowmon->GetFlowStats ();
-  std::string flowtrace=m_protocolName +"_" + nodes + "nodes_" + sNodeSpeed + "speed_";
+  std::string flowtrace=m_protocolName +"_" + nodes + "nodes_" + sNodeSpeed + "speed_" + sRange+ "range";
   //std::string flod="flow overhead_1200_600""_" + m_protocolName +"_" + nodes + "nodes_" + sNodeSpeed + "speed_" + sNodePause + "pause_" + sRate + "rate";
 
   std::ofstream flowy(flowtrace,std::ios::app);
@@ -443,8 +447,8 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
     	      			  -iter->second.timeFirstTxPacket.GetSeconds()) / 1024  << " Kbps"<<std::endl;
     	      	  sumthrput+=iter->second.rxBytes * 8.0 / (iter->second.timeLastRxPacket.GetSeconds()
     	      			  -iter->second.timeFirstTxPacket.GetSeconds()) / 1024 ;
-    	      	 flowy<<"Delay Expectation"<<iter->second.delaySum/(iter->second.rxPackets*1000000)<<std::endl;
-    	      	 sumdelay+=iter->second.delaySum/1000000;
+    	      	 flowy<<"Delay Expectation"<<iter->second.delaySum/(iter->second.rxPackets)<<std::endl;
+    	      	 sumdelay+=iter->second.delaySum;
 
     }
 
@@ -455,8 +459,8 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
   //overhead=m.ns3::min_routing::RoutingProtocol::Gettxbytes();
   //NS_LOG_UNCOND(m.ns3::min_routing::RoutingProtocol::Gettxbytes());
   flowy<<"PDR: "<<double(sumpktrx)/double(sumpkttx)<<std::endl;
-  flowy<<"rx: "<<sumpktrx<<std::endl;
-  flowy<<"Delay Expectation: "<<sumdelay/sumpktrx<<std::endl;
+  flowy<<"Receive Packets: "<<sumpktrx<<std::endl;
+  flowy<<"Delay Expectation: "<<(sumdelay/sumpktrx).GetMilliSeconds()<<"ms"<<std::endl;
   flowy<<"Throughput: "<<sumthrput<<std::endl;
   //flowovld<<"overhead of protocol:"<<overhead<<std::endl;
 

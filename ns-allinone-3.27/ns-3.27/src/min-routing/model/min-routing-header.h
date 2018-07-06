@@ -457,7 +457,9 @@ public:
      0                   1                   2                   3
      0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-    |              ANSN             |           Reserved            |
+    |              ANSN             |         Start time            |
+    +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+    |          nextWaitingdelay     |      next2Waitingdelay        |      //I add!
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
     |               Advertised Neighbor Main Address                |
     +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -471,7 +473,9 @@ public:
   {
     std::vector<Ipv4Address> neighborAddresses; //!< Neighbor address container.
     uint16_t ansn;  //!< Advertised Neighbor Sequence Number.
-
+    uint16_t StartTime;
+    uint16_t nextWaittingdelay;        //I add!
+    uint16_t next2Waittingdelay;       // I add!
     /**
      * This method is used to print the content of a MID message.
      * \param os output stream

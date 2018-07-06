@@ -116,6 +116,7 @@ public:
    */
   typedef void (* TableChangeTracedCallback) (uint32_t size);
 
+
 private:
   std::set<uint32_t> m_interfaceExclusions; //!< Set of interfaces excluded by OSLR.
   Ptr<Ipv4StaticRouting> m_routingTableAssociation; //!< Associations from an Ipv4StaticRouting instance
@@ -129,6 +130,7 @@ public:
   {
     return m_interfaceExclusions;
   }
+
 
   uint64_t Gettxbytes()
   {
@@ -205,6 +207,9 @@ private:
   uint64_t txbytes;            //I defined it!!!!!!!!!
   uint64_t overhead;   //I defined it!!!!
 
+  Time totalwaitingdelay;      //I defined!!!
+  uint32_t totalpackets;       //I defined!!!
+  Time Ema;                    //I defined!!!
   /**
    * \brief Clears the routing table and frees the memory assigned to each one of its entries.
    */

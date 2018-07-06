@@ -7,7 +7,7 @@
 #     conf.check_nonfatal(header_name='stdint.h', define_name='HAVE_STDINT_H')
 
 def build(bld):
-    module = bld.create_ns3_module('min-routing', ['internet'])
+    module = bld.create_ns3_module('min-routing', ['internet','core','network','wifi','mobility'])
     module.source = [
         'model/min-routing-protocol.cc',
         'helper/min-routing-helper.cc',

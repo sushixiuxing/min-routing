@@ -3,7 +3,7 @@
 def build(bld):
     
     obj = bld.create_ns3_program('mymanet-routing-compare',
-                                 ['wifi', 'dsr', 'dsdv', 'aodv', 'min-routing','olsr', 'flow-monitor','internet', 'applications'])
+                                 ['wifi', 'dsr', 'dsdv', 'aodv', 'min-routing','olsr','flow-monitor','internet','network','applications'])
     obj.source = 'mymanet-routing-compare.cc'
     
 

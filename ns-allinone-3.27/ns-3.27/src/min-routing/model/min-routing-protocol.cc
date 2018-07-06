@@ -53,6 +53,11 @@
 #include "ns3/ipv4-packet-info-tag.h"
 #include "ns3/mobility-module.h"
 #include <cmath>
+#include "ns3/wifi-module.h"      //I add!
+#include "ns3/queue.h"                //I add!
+#include "ns3/node.h"                 //I add!
+#include "ns3/object-base.h"          //I add!
+#include "ns3/pointer.h"              //I add!
 /********** Useful macros **********/
 
 ///
@@ -201,11 +206,13 @@ RoutingProtocol::GetTypeId (void)
   return tid;
 }
 
-
 RoutingProtocol::RoutingProtocol ()
   : m_routingTableAssociation (0),
   m_ipv4 (0),
   txbytes(0),
+  totalwaitingdelay(0),
+  totalpackets(0),
+  Ema(NanoSeconds(0)),
   m_helloTimer (Timer::CANCEL_ON_DESTROY),
   m_tcTimer (Timer::CANCEL_ON_DESTROY),
   m_midTimer (Timer::CANCEL_ON_DESTROY),
@@ -213,10 +220,11 @@ RoutingProtocol::RoutingProtocol ()
   m_queuedMessagesTimer (Timer::CANCEL_ON_DESTROY)
 
 {
+
   m_uniformRandomVariable = CreateObject<UniformRandomVariable> ();
 
-
   m_hnaRoutingTable = Create<Ipv4StaticRouting> ();
+
 }
 
 RoutingProtocol::~RoutingProtocol ()
@@ -230,6 +238,7 @@ RoutingProtocol::~RoutingProtocol ()
 	 // out << txbytes<<" "
 	//		  <<std::endl;
 	  //out.close ();
+
 }
 
 void
@@ -515,7 +524,7 @@ RoutingProtocol::RecvMin_routing (Ptr<Socket> socket)
           (messageHeader.GetOriginatorAddress (),
           messageHeader.GetMessageSequenceNumber ());
 
-      // Get main address of the peer, which may be different from the packet source address
+//       Get main address of the peer, which may be different from the packet source address
 //       const IfaceAssocTuple *ifaceAssoc = m_state.FindIfaceAssocTuple (inetSourceAddr.GetIpv4 ());
 //       Ipv4Address peerMainAddress;
 //       if (ifaceAssoc != NULL)
@@ -863,6 +872,7 @@ RoutingProtocol::MprComputation ()
       // through this 1-hop neighbor
       std::map<int, std::vector<const NeighborTuple *> > reachability;
       std::set<int> rs;
+
       for (NeighborSet::iterator it = N.begin (); it != N.end (); it++)
         {
           NeighborTuple const &nb_tuple = *it;
@@ -875,9 +885,38 @@ RoutingProtocol::MprComputation ()
                   r++;
                 }
             }
+
           rs.insert (r);
           reachability[r].push_back (&nb_tuple);
-        }
+        }  //I delete it ,if use ,release it.
+
+     /* //Calculate the reachability and metric
+             double a=0.7;
+             double b=0.3;
+
+             for (NeighborSet::const_iterator neigh = m_state.GetNeighbors ().begin ();
+                       	       neigh != m_state.GetNeighbors ().end (); neigh++)
+             {
+            	 NeighborTuple const *n_tuple = &(*neigh);
+            	 int r=0;
+            	 for (TwoHopNeighborSet::iterator it = N2.begin(); it != N2.end(); it++)
+            	 {
+            		 TwoHopNeighborTuple const &nb2hop_tuple = *it;
+            		 if (n_tuple->neighborMainAddr == nb2hop_tuple.neighborMainAddr)
+            		 {
+            			 r++;
+            		 }
+            	 }
+            	 n_tuple->metric = a*(n_tuple->willingness) + b*r;
+            	 rs.insert (r);
+            	 reachability[r].push_back (n_tuple);
+            	 NS_LOG_UNCOND("reachability:"<<r<<"metric:"<<n_tuple->metric);
+             }
+             */
+
+
+                 //  NS_LOG_UNCOND("willingness:"<<N_willingness<<"reachability:"<<r<<"metric:"<<nb_tuple->metric);
+
 
       // 4.2. Select as a MPR the node with highest N_willingness among
       // the nodes in N with non-zero reachability. In case of
@@ -887,7 +926,7 @@ RoutingProtocol::MprComputation ()
       // reachability, select the node as MPR whose D(y) is
       // greater. Remove the nodes from N2 which are now covered
       // by a node in the MPR set.
-      NeighborTuple const *max = NULL;
+     /* NeighborTuple const *max = NULL;
       int max_r = 0;
       for (std::set<int>::iterator it = rs.begin (); it != rs.end (); it++)
         {
@@ -924,11 +963,51 @@ RoutingProtocol::MprComputation ()
                     }
                 }
             }
-        }
+        }*/         //I delete it, if use ,release it.
+
+    // Use the metric to decide which neighbor shoule be choosed as mpr; I add!
+      NeighborTuple const *max = NULL;
+            int max_r = 0;
+            for (std::set<int>::iterator it = rs.begin (); it != rs.end (); it++)
+              {
+                int r = *it;
+                if (r == 0)
+                  {
+                    continue;
+                  }
+                for (std::vector<const NeighborTuple *>::iterator it2 = reachability[r].begin ();
+                     it2 != reachability[r].end (); it2++)
+                  {
+
+                    const NeighborTuple *nb_tuple = *it2;
+                    if (max == NULL || nb_tuple->metric > max->metric )
+                      {
+                        max = nb_tuple;
+                        max_r = r;
+                      }
+
+                    else if (nb_tuple->metric == max->metric)
+                      {
+                        if (r > max_r)
+                          {
+                            max = nb_tuple;
+                            max_r = r;
+                          }
+                        else if (r == max_r)
+                          {
+                            if (Degree (*nb_tuple) > Degree (*max))
+                              {
+                                max = nb_tuple;
+                                max_r = r;
+                              }
+                          }
+                      }
+                  }
+              }
 
       if (max != NULL)
         {
-    	  //NS_LOG_UNCOND("degree:"<<Degree(*max));     //I add
+    	  //NS_LOG_UNCOND("metric:"<<max->metric);     //I add
           mprSet.insert (max->neighborMainAddr);
           CoverTwoHopNeighbors (max->neighborMainAddr, N2);
           NS_LOG_LOGIC (N2.size () << " 2-hop neighbors left to cover!");
@@ -1677,7 +1756,7 @@ RoutingProtocol::SendPacket (Ptr<Packet> packet,
 
 
 void
-RoutingProtocol::SendQueuedMessages ()
+RoutingProtocol::SendQueuedMessages ()              //To add several messages to a packet , I understand
 {
   Ptr<Packet> packet = Create<Packet> ();
   int numMessages = 0;
@@ -1850,6 +1929,42 @@ RoutingProtocol::SendTc ()
 
   min_routing::MessageHeader::Tc &tc = msg.GetTc ();
   tc.ansn = m_ansn;
+
+  //I add! To obtain the total waiting delay and the packets from the wifi-mac in last period.
+  PointerValue ptr;
+  Ptr<WifiMac> mac = m_ipv4->GetObject<Node>()->GetDevice(0)->GetObject<WifiNetDevice>()->GetMac();
+  Ptr<RegularWifiMac> m_mac = DynamicCast<RegularWifiMac> (mac);
+  m_mac->GetAttributeFailSafe ("DcaTxop", ptr);
+  Ptr<WifiMacQueue> queue = ptr.Get<DcaTxop> ()->GetQueue ();
+  Time nowtotaldelay = queue->GettotalWaitingtime();
+  uint32_t nowtotalpackets = queue->Gettotalpackets();
+  Time increasedelay = nowtotaldelay-totalwaitingdelay;
+  uint32_t increasepackets = nowtotalpackets-totalpackets;
+  Time LastPeriodAverageDelay = increasedelay/increasepackets;
+ NS_LOG_UNCOND("SimulatonTime"<<Simulator::Now()<<"  "<<"Node:"<<m_ipv4->GetObject<Node>()->GetId()
+		 <<"  "<<"AverageWaitingdelay:"<<LastPeriodAverageDelay.GetMicroSeconds()
+		 <<"us  PredictError:"<<(Ema-LastPeriodAverageDelay).GetMicroSeconds()<<"us");
+
+  //Use LastPeriodAverageDealy to predict the next period waiting delay
+  double a=2;
+  if (Simulator::Now() == NanoSeconds(+35000000000))
+  {
+	  Ema = LastPeriodAverageDelay;
+  }
+  Time Etx = LastPeriodAverageDelay/a+Ema/a;
+  //use nowtotaldelay and nowtotalpackets to initialize totalwaitingdealy and totalpackets
+  totalwaitingdelay = nowtotaldelay;
+  totalpackets = nowtotalpackets;
+  Ema = Etx;       //update the Ema
+
+
+  //I add! To callback the waiting delay and the packets from the wifi-mac
+//  Callback<Time,empty> waitingdelay;
+//  //WifiMacQueue totaldelay;
+//  waitingdelay = MakeCallback(&WifiMacQueue::GettotalWaitingtime,this);
+//  NS_ASSERT(!waitingdelay.IsNull());
+//  Time lastdelay;
+//  lastdelay = waitingdelay();
 
   for (MprSelectorSet::const_iterator mprsel_tuple = m_state.GetMprSelectors ().begin ();
        mprsel_tuple != m_state.GetMprSelectors ().end (); mprsel_tuple++)
@@ -2206,14 +2321,14 @@ RoutingProtocol::PopulateNeighborSet (const min_routing::MessageHeader &msg,
        double LLT=(-2*cos*d+sqrt(pow((2*cos*d),mi)-4*(pow(d,mi)-pow((Range),mi))))/(2*rvel);     //calculate the two order function of a variable
        N_willingness=round(LLT+0.5);
 
-       if (N_willingness >127)
+       if (N_willingness >10)
        {
-    	   N_willingness=127;
+    	   N_willingness=11;
+
        }
        if (N_willingness <= 0)
        {
-    	   N_willingness=127;
-
+    	   N_willingness = 11;
        }
        if (d>(6*Range)/7)
        {
@@ -2226,6 +2341,7 @@ RoutingProtocol::PopulateNeighborSet (const min_routing::MessageHeader &msg,
 
        //set the n_willingness according to the LLT
        nb_tuple->willingness = u_willingness;
+
     }
 }
 
@@ -2334,6 +2450,32 @@ RoutingProtocol::PopulateTwoHopNeighborSet (const min_routing::MessageHeader &ms
     }
 
   NS_LOG_DEBUG ("Min_routing node " << m_mainAddress << ": PopulateTwoHopNeighborSet END");
+
+ //Calculate the Metric,I add!
+         NeighborTuple *nb_tuple = m_state.FindNeighborTuple (msg.GetOriginatorAddress());
+         double a=0.3;
+         double b=0.5;
+         int r=0;
+         for (TwoHopNeighborSet::const_iterator twoHopNeigh = m_state.GetTwoHopNeighbors ().begin ();
+      	       twoHopNeigh != m_state.GetTwoHopNeighbors ().end (); twoHopNeigh++)
+         {
+      	   TwoHopNeighborTuple const &n2hop_tuple = *twoHopNeigh;
+              if (nb_tuple->neighborMainAddr == n2hop_tuple.neighborMainAddr)
+                 {
+                   r++;                                                          //Calculate the reachability
+                 }
+          }
+         int N_willingness = UintToInt(nb_tuple->willingness);
+         if (r==0)
+         {
+      	   nb_tuple->metric = 0;
+         }
+         else
+         {
+      	   //nb_tuple->metric = a*N_willingness+b*r;
+      	   nb_tuple->metric = a*r/(exp(-N_willingness*b));
+         }
+         //NS_LOG_UNCOND("willingness:"<<N_willingness<<"metric:"<<nb_tuple->metric);
 }
 
 void
@@ -2955,6 +3097,7 @@ RoutingProtocol::FindSendEntry (RoutingTableEntry const &entry,
   return true;
 }
 
+//This function is used to help send a packet from the socket, to tell the next hop, I understand!!! very important!
 Ptr<Ipv4Route>
 RoutingProtocol::RouteOutput (Ptr<Packet> p, const Ipv4Header &header, Ptr<NetDevice> oif, Socket::SocketErrno &sockerr)
 {

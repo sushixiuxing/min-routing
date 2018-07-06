@@ -465,7 +465,7 @@ MessageHeader::Hello::Deserialize (Buffer::Iterator start, uint32_t messageSize)
 uint32_t
 MessageHeader::Tc::GetSerializedSize (void) const
 {
-  return 4 + this->neighborAddresses.size () * IPV4_ADDRESS_SIZE;
+  return 8 + this->neighborAddresses.size () * IPV4_ADDRESS_SIZE;    //I modified!! 4 to 8
 }
 
 void
@@ -480,7 +480,9 @@ MessageHeader::Tc::Serialize (Buffer::Iterator start) const
   Buffer::Iterator i = start;
 
   i.WriteHtonU16 (this->ansn);
-  i.WriteHtonU16 (0); // Reserved
+  i.WriteHtonU16 (this->StartTime);                // I add!
+  i.WriteHtonU16 (this->nextWaittingdelay);        // I add!
+  i.WriteHtonU16 (this->next2Waittingdelay);       // I add!
 
   for (std::vector<Ipv4Address>::const_iterator iter = this->neighborAddresses.begin ();
        iter != this->neighborAddresses.end (); iter++)
@@ -495,13 +497,15 @@ MessageHeader::Tc::Deserialize (Buffer::Iterator start, uint32_t messageSize)
   Buffer::Iterator i = start;
 
   this->neighborAddresses.clear ();
-  NS_ASSERT (messageSize >= 4);
+  NS_ASSERT (messageSize >= 8);                                   //I modified! 4 to 8
 
   this->ansn = i.ReadNtohU16 ();
-  i.ReadNtohU16 (); // Reserved
+  this->StartTime = i.ReadNtohU16 ();                             //I add!
+  this->nextWaittingdelay = i.ReadNtohU16();
+  this->next2Waittingdelay = i.ReadNtohU16();
 
-  NS_ASSERT ((messageSize - 4) % IPV4_ADDRESS_SIZE == 0);
-  int numAddresses = (messageSize - 4) / IPV4_ADDRESS_SIZE;
+  NS_ASSERT ((messageSize - 8) % IPV4_ADDRESS_SIZE == 0);         //I modified ! 4 to 8
+  int numAddresses = (messageSize - 8) / IPV4_ADDRESS_SIZE;       //I modified! 4 to 8
   this->neighborAddresses.clear ();
   for (int n = 0; n < numAddresses; ++n)
     {

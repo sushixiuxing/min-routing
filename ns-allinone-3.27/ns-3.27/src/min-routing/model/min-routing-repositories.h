@@ -115,6 +115,7 @@ struct NeighborTuple
   uint16_t y_pos;
   uint8_t x_vel;
   uint8_t y_vel;
+  double metric;          //I add it!
 };
 
 static inline bool
@@ -122,10 +123,10 @@ operator == (const NeighborTuple &a, const NeighborTuple &b)            //whethe
 {
   return (a.neighborMainAddr == b.neighborMainAddr
           && a.status == b.status
-          && a.willingness == b.willingness);
-		 // && a.x_pos == b.x_pos
-		 // && a.y_pos == b.y_pos
-		 // && a.x_vel == b.y_vel);
+          && a.willingness == b.willingness
+		  && a.x_pos == b.x_pos
+		  && a.y_pos == b.y_pos
+		  && a.x_vel == b.y_vel);
 }
 
 static inline std::ostream&
@@ -211,7 +212,7 @@ operator == (const DuplicateTuple &a, const DuplicateTuple &b)
           && a.sequenceNumber == b.sequenceNumber);
 }
 
-/// \ingroup olsr
+/// \ingroup min-routing
 /// A Topology Tuple
 struct TopologyTuple
 {
@@ -221,6 +222,12 @@ struct TopologyTuple
   Ipv4Address lastAddr;
   /// Sequence number.
   uint16_t sequenceNumber;
+  //the start time of the predicting waiting delay
+  Time starttime;                    //I add!
+  //The next period waiting delay
+  uint16_t nextperioddelay;              //I add!
+  //The next 2 period waiting delay
+  uint16_t next2perioddelay;             //I add!
   /// Time at which this tuple expires and must be removed.
   Time expirationTime;
 };
@@ -230,7 +237,9 @@ operator == (const TopologyTuple &a, const TopologyTuple &b)
 {
   return (a.destAddr == b.destAddr
           && a.lastAddr == b.lastAddr
-          && a.sequenceNumber == b.sequenceNumber);
+          && a.sequenceNumber == b.sequenceNumber
+		  && a.starttime == b.starttime
+		  && a.nextperioddelay == b.nextperioddelay);
 }
 
 static inline std::ostream&
@@ -239,6 +248,9 @@ operator << (std::ostream &os, const TopologyTuple &tuple)
   os << "TopologyTuple(destAddr=" << tuple.destAddr
      << ", lastAddr=" << tuple.lastAddr
      << ", sequenceNumber=" << (int) tuple.sequenceNumber
+	 <<", starttime=" << tuple.starttime
+	 <<", nextperioddelay" <<tuple.nextperioddelay
+	 <<", next2perioddelay" <<tuple.next2perioddelay
      << ", expirationTime=" << tuple.expirationTime
      << ")";
   return os;

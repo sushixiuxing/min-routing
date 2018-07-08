@@ -238,7 +238,7 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
 
   int nWifis = 30;//originl:50
 
-  double TotalTime = 200.0;
+  double TotalTime = 400.0;
   std::string rate ("4096Bps");
   std::string phyMode ("DsssRate11Mbps");
   std::string tr_name ("manet-routing-compare");
@@ -369,7 +369,7 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
       Ptr<UniformRandomVariable> var = CreateObject<UniformRandomVariable> ();
       ApplicationContainer temp = onoff1.Install (adhocNodes.Get (i + nSinks));
       temp.Start (Seconds (var->GetValue (30.0,31.0)));
-      temp.Stop (Seconds (180));//I modified it!!
+      temp.Stop (Seconds (380));//I modified it!!
     }
 
 

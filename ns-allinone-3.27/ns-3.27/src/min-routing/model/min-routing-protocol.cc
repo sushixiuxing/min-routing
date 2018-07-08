@@ -212,7 +212,9 @@ RoutingProtocol::RoutingProtocol ()
   txbytes(0),
   totalwaitingdelay(0),
   totalpackets(0),
-  Ema(NanoSeconds(0)),
+  Ema(0),
+  Dma(0),
+  thispredelay(0),
   m_helloTimer (Timer::CANCEL_ON_DESTROY),
   m_tcTimer (Timer::CANCEL_ON_DESTROY),
   m_midTimer (Timer::CANCEL_ON_DESTROY),
@@ -1941,22 +1943,33 @@ RoutingProtocol::SendTc ()
   Time increasedelay = nowtotaldelay-totalwaitingdelay;
   uint32_t increasepackets = nowtotalpackets-totalpackets;
   Time LastPeriodAverageDelay = increasedelay/increasepackets;
- NS_LOG_UNCOND("SimulatonTime"<<Simulator::Now()<<"  "<<"Node:"<<m_ipv4->GetObject<Node>()->GetId()
-		 <<"  "<<"AverageWaitingdelay:"<<LastPeriodAverageDelay.GetMicroSeconds()
-		 <<"us  PredictError:"<<(Ema-LastPeriodAverageDelay).GetMicroSeconds()<<"us");
 
   //Use LastPeriodAverageDealy to predict the next period waiting delay
-  double a=2;
+  double a=0.5, b=0.5;
   if (Simulator::Now() == NanoSeconds(+35000000000))
   {
-	  Ema = LastPeriodAverageDelay;
+	  Ema = LastPeriodAverageDelay.GetMicroSeconds();
   }
-  Time Etx = LastPeriodAverageDelay/a+Ema/a;
-  //use nowtotaldelay and nowtotalpackets to initialize totalwaitingdealy and totalpackets
+  double Etx = LastPeriodAverageDelay.GetMicroSeconds()*a + Ema*(1-a);
+  double Dtx = b*(Etx-Ema) + (1-b)*Dma;
+  double Predelay = Etx + Dtx;       //The next TC period waiting delay!!!
+  NS_LOG_UNCOND("SimulatonTime"<<Simulator::Now()<<"  "<<"Node:"<<m_ipv4->GetObject<Node>()->GetId()
+		 <<"  "<<"AverageWaitingdelay:"<<LastPeriodAverageDelay.GetMicroSeconds()<<"  PredictingDealy:"<<thispredelay);
+
+  //use nowtotaldelay and nowtotalpackets to update totalwaitingdealy and totalpackets
   totalwaitingdelay = nowtotaldelay;
   totalpackets = nowtotalpackets;
-  Ema = Etx;       //update the Ema
+  Ema = round(Etx);       //update the Ema
+  Dma = round(Dtx);
+  thispredelay = Predelay;    //To verify the prediction !!! It can be deleted.
 
+  //Write the predicting waitingdelay into the TC format
+  tc.StartTime = Simulator::Now().GetMicroSeconds();
+  if (Predelay < 0)
+  {
+	  Predelay = 0;
+  }
+  tc.nextWaittingdelay = round(Predelay);
 
   //I add! To callback the waiting delay and the packets from the wifi-mac
 //  Callback<Time,empty> waitingdelay;

@@ -209,7 +209,9 @@ private:
 
   Time totalwaitingdelay;      //I defined!!!
   uint32_t totalpackets;       //I defined!!!
-  Time Ema;                    //I defined!!!
+  int64_t Ema;                 //I defined!!!, The predicting waiting delay coefficient in this TC period.
+  int64_t Dma;                 //I defined!!!, The double exponential coefficient in this TC period.
+  double thispredelay;         // I defined
   /**
    * \brief Clears the routing table and frees the memory assigned to each one of its entries.
    */

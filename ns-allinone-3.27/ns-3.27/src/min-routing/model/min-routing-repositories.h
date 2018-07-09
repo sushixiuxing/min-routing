@@ -223,7 +223,7 @@ struct TopologyTuple
   /// Sequence number.
   uint16_t sequenceNumber;
   //the start time of the predicting waiting delay
-  Time starttime;                    //I add!
+  uint16_t starttime;                    //I add!
   //The next period waiting delay
   uint16_t nextperioddelay;              //I add!
   //The next 2 period waiting delay

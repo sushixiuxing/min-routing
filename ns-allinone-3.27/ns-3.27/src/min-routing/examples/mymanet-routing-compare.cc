@@ -117,7 +117,7 @@ RoutingExperiment::RoutingExperiment ()
     packetsReceived (0),
     m_CSVfileName ("minmanet-routing.output.csv"),
     m_traceMobility (false),
-    m_protocol (1) //  1-Min_Routing; 4-OLSR
+    m_protocol (4) //  1-Min_Routing; 4-OLSR
 {
 }
 

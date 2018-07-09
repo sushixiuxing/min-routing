@@ -1055,6 +1055,7 @@ RoutingProtocol::GetMainAddress (Ipv4Address iface_addr) const
     }
 }
 
+/*
 void
 RoutingProtocol::RoutingTableComputation ()
 {
@@ -1370,6 +1371,339 @@ RoutingProtocol::RoutingTableComputation ()
   NS_LOG_DEBUG ("Node " << m_mainAddress << ": RoutingTableComputation end.");
   m_routingTableChanged (GetSize ());
 }
+*/
+
+//I moidfined!!! Calculate the the routingtable
+void
+RoutingProtocol::RoutingTableComputation ()
+{
+  NS_LOG_DEBUG (Simulator::Now ().GetSeconds () << " s: Node " << m_mainAddress
+                                                << ": RoutingTableComputation begin...");
+
+  // 1. All the entries from the routing table are removed.
+  Clear ();
+
+  // 2. The new routing entries are added starting with the
+  // symmetric neighbors (h=1) as the destination nodes.
+  const NeighborSet &neighborSet = m_state.GetNeighbors ();
+  for (NeighborSet::const_iterator it = neighborSet.begin ();
+       it != neighborSet.end (); it++)
+    {
+      NeighborTuple const &nb_tuple = *it;
+      NS_LOG_DEBUG ("Looking at neighbor tuple: " << nb_tuple);
+      if (nb_tuple.status == NeighborTuple::STATUS_SYM)
+        {
+          bool nb_main_addr = false;
+          const LinkTuple *lt = NULL;
+          const LinkSet &linkSet = m_state.GetLinks ();
+          for (LinkSet::const_iterator it2 = linkSet.begin ();
+               it2 != linkSet.end (); it2++)
+            {
+              LinkTuple const &link_tuple = *it2;
+              NS_LOG_DEBUG ("Looking at link tuple: " << link_tuple
+                                                      << (link_tuple.time >= Simulator::Now () ? "" : " (expired)"));
+              if ((GetMainAddress (link_tuple.neighborIfaceAddr) == nb_tuple.neighborMainAddr)
+                  && link_tuple.time >= Simulator::Now ())
+                {
+                  NS_LOG_LOGIC ("Link tuple matches neighbor " << nb_tuple.neighborMainAddr
+                                                               << " => adding routing table entry to neighbor");
+                  lt = &link_tuple;
+                  AddEntry (link_tuple.neighborIfaceAddr,
+                            link_tuple.neighborIfaceAddr,
+                            link_tuple.localIfaceAddr,
+                            1);
+                  if (link_tuple.neighborIfaceAddr == nb_tuple.neighborMainAddr)
+                    {
+                      nb_main_addr = true;
+                    }
+                }
+              else
+                {
+                  NS_LOG_LOGIC ("Link tuple: linkMainAddress= " << GetMainAddress (link_tuple.neighborIfaceAddr)
+                                                                << "; neighborMainAddr =  " << nb_tuple.neighborMainAddr
+                                                                << "; expired=" << int (link_tuple.time < Simulator::Now ())
+                                                                << " => IGNORE");
+                }
+            }
+
+          // If, in the above, no R_dest_addr is equal to the main
+          // address of the neighbor, then another new routing entry
+          // with MUST be added, with:
+          //      R_dest_addr  = main address of the neighbor;
+          //      R_next_addr  = L_neighbor_iface_addr of one of the
+          //                     associated link tuple with L_time >= current time;
+          //      R_dist       = 1;
+          //      R_iface_addr = L_local_iface_addr of the
+          //                     associated link tuple.
+          if (!nb_main_addr && lt != NULL)
+            {
+              NS_LOG_LOGIC ("no R_dest_addr is equal to the main address of the neighbor "
+                            "=> adding additional routing entry");
+              AddEntry (nb_tuple.neighborMainAddr,
+                        lt->neighborIfaceAddr,
+                        lt->localIfaceAddr,
+                        1);
+            }
+        }
+    }
+
+  //  3. for each node in N2, i.e., a 2-hop neighbor which is not a
+  //  neighbor node or the node itself, and such that there exist at
+  //  least one entry in the 2-hop neighbor set where
+  //  N_neighbor_main_addr correspond to a neighbor node with
+  //  willingness different of WILL_NEVER,
+  const TwoHopNeighborSet &twoHopNeighbors = m_state.GetTwoHopNeighbors ();
+  for (TwoHopNeighborSet::const_iterator it = twoHopNeighbors.begin ();
+       it != twoHopNeighbors.end (); it++)
+    {
+      TwoHopNeighborTuple const &nb2hop_tuple = *it;
+
+      NS_LOG_LOGIC ("Looking at two-hop neighbor tuple: " << nb2hop_tuple);
+
+      // a 2-hop neighbor which is not a neighbor node or the node itself
+      if (m_state.FindSymNeighborTuple (nb2hop_tuple.twoHopNeighborAddr))
+        {
+          NS_LOG_LOGIC ("Two-hop neighbor tuple is also neighbor; skipped.");
+          continue;
+        }
+
+      if (nb2hop_tuple.twoHopNeighborAddr == m_mainAddress)
+        {
+          NS_LOG_LOGIC ("Two-hop neighbor is self; skipped.");
+          continue;
+        }
+
+      // ...and such that there exist at least one entry in the 2-hop
+      // neighbor set where N_neighbor_main_addr correspond to a
+      // neighbor node with willingness different of WILL_NEVER...
+      bool nb2hopOk = false;
+      for (NeighborSet::const_iterator neighbor = neighborSet.begin ();
+           neighbor != neighborSet.end (); neighbor++)
+        {
+          if (neighbor->neighborMainAddr == nb2hop_tuple.neighborMainAddr
+              && neighbor->willingness != Min_Routing_WILL_NEVER)
+            {
+              nb2hopOk = true;
+              break;
+            }
+        }
+      if (!nb2hopOk)
+        {
+          NS_LOG_LOGIC ("Two-hop neighbor tuple skipped: 2-hop neighbor "
+                        << nb2hop_tuple.twoHopNeighborAddr
+                        << " is attached to neighbor " << nb2hop_tuple.neighborMainAddr
+                        << ", which was not found in the Neighbor Set.");
+          continue;
+        }
+
+      // one selects one 2-hop tuple and creates one entry in the routing table with:
+      //                R_dest_addr  =  the main address of the 2-hop neighbor;
+      //                R_next_addr  = the R_next_addr of the entry in the
+      //                               routing table with:
+      //                                   R_dest_addr == N_neighbor_main_addr
+      //                                                  of the 2-hop tuple;
+      //                R_dist       = 2;
+      //                R_iface_addr = the R_iface_addr of the entry in the
+      //                               routing table with:
+      //                                   R_dest_addr == N_neighbor_main_addr
+      //                                                  of the 2-hop tuple;
+      RoutingTableEntry entry;
+      bool foundEntry = Lookup (nb2hop_tuple.neighborMainAddr, entry);
+      if (foundEntry)
+        {
+          NS_LOG_LOGIC ("Adding routing entry for two-hop neighbor.");
+          AddEntry (nb2hop_tuple.twoHopNeighborAddr,
+                    entry.nextAddr,
+                    entry.interface,
+                    2);
+        }
+      else
+        {
+          NS_LOG_LOGIC ("NOT adding routing entry for two-hop neighbor ("
+                        << nb2hop_tuple.twoHopNeighborAddr
+                        << " not found in the routing table)");
+        }
+    }
+
+  for (uint32_t h = 2;; h++)
+    {
+      bool added = false;
+
+      // 3.1. For each topology entry in the topology table, if its
+      // T_dest_addr does not correspond to R_dest_addr of any
+      // route entry in the routing table AND its T_last_addr
+      // corresponds to R_dest_addr of a route entry whose R_dist
+      // is equal to h, then a new route entry MUST be recorded in
+      // the routing table (if it does not already exist)
+      const TopologySet &topology = m_state.GetTopologySet ();
+      TopologyTuple const *min = NULL;              //I add!!!
+      RoutingTableEntry minEntry;                   //I add!!!
+      for (TopologySet::const_iterator it = topology.begin ();
+           it != topology.end (); it++)
+        {
+          const TopologyTuple &topology_tuple = *it;
+          NS_LOG_LOGIC ("Looking at topology tuple: " << topology_tuple);
+
+          RoutingTableEntry destAddrEntry, lastAddrEntry;
+          bool have_destAddrEntry = Lookup (topology_tuple.destAddr, destAddrEntry);
+          bool have_lastAddrEntry = Lookup (topology_tuple.lastAddr, lastAddrEntry);   // Here can be modifined!!! To find the smallest delay
+          if (!have_destAddrEntry && have_lastAddrEntry && lastAddrEntry.distance == h)
+            {
+              NS_LOG_LOGIC ("Adding routing table entry based on the topology tuple.");
+              // then a new route entry MUST be recorded in
+              //                the routing table (if it does not already exist) where:
+              //                     R_dest_addr  = T_dest_addr;
+              //                     R_next_addr  = R_next_addr of the recorded
+              //                                    route entry where:
+              //                                    R_dest_addr == T_last_addr
+              //                     R_dist       = h+1; and
+              //                     R_iface_addr = R_iface_addr of the recorded
+              //                                    route entry where:
+              //                                       R_dest_addr == T_last_addr.
+              //To find the smallest delay topologySet,I add!
+              if (min == NULL || topology_tuple.nextperioddelay < min->nextperioddelay)
+              {
+            	  min = &topology_tuple;
+            	  minEntry = lastAddrEntry;
+            	  continue;
+              }
+            }
+
+          if (min != NULL)          //I add!!!
+          {
+              AddEntry (min->destAddr,
+                        minEntry.nextAddr,
+                        minEntry.interface,
+                        h + 1);
+              added = true;
+
+          }
+          else
+            {
+              NS_LOG_LOGIC ("NOT adding routing table entry based on the topology tuple: "
+                            "have_destAddrEntry=" << have_destAddrEntry
+                                                  << " have_lastAddrEntry=" << have_lastAddrEntry
+                                                  << " lastAddrEntry.distance=" << (int) lastAddrEntry.distance
+                                                  << " (h=" << h << ")");
+            }
+        }
+
+      if (!added)
+        {
+          break;
+        }
+    }
+
+  // 4. For each entry in the multiple interface association base
+  // where there exists a routing entry such that:
+  // R_dest_addr == I_main_addr (of the multiple interface association entry)
+  // AND there is no routing entry such that:
+  // R_dest_addr == I_iface_addr
+  const IfaceAssocSet &ifaceAssocSet = m_state.GetIfaceAssocSet ();
+  for (IfaceAssocSet::const_iterator it = ifaceAssocSet.begin ();
+       it != ifaceAssocSet.end (); it++)
+    {
+      IfaceAssocTuple const &tuple = *it;
+      RoutingTableEntry entry1, entry2;
+      bool have_entry1 = Lookup (tuple.mainAddr, entry1);
+      bool have_entry2 = Lookup (tuple.ifaceAddr, entry2);
+      if (have_entry1 && !have_entry2)
+        {
+          // then a route entry is created in the routing table with:
+          //       R_dest_addr  =  I_iface_addr (of the multiple interface
+          //                                     association entry)
+          //       R_next_addr  =  R_next_addr  (of the recorded route entry)
+          //       R_dist       =  R_dist       (of the recorded route entry)
+          //       R_iface_addr =  R_iface_addr (of the recorded route entry).
+          AddEntry (tuple.ifaceAddr,
+                    entry1.nextAddr,
+                    entry1.interface,
+                    entry1.distance);
+        }
+    }
+
+  // 5. For each tuple in the association set,
+  //    If there is no entry in the routing table with:
+  //        R_dest_addr     == A_network_addr/A_netmask
+  //   and if the announced network is not announced by the node itself,
+  //   then a new routing entry is created.
+  const AssociationSet &associationSet = m_state.GetAssociationSet ();
+
+  // Clear HNA routing table
+  for (uint32_t i = 0; i < m_hnaRoutingTable->GetNRoutes (); i++)
+    {
+      m_hnaRoutingTable->RemoveRoute (0);
+    }
+
+  for (AssociationSet::const_iterator it = associationSet.begin ();
+       it != associationSet.end (); it++)
+    {
+      AssociationTuple const &tuple = *it;
+
+      // Test if HNA associations received from other gateways
+      // are also announced by this node. In such a case, no route
+      // is created for this association tuple (go to the next one).
+      bool goToNextAssociationTuple = false;
+      const Associations &localHnaAssociations = m_state.GetAssociations ();
+      NS_LOG_DEBUG ("Nb local associations: " << localHnaAssociations.size ());
+      for (Associations::const_iterator assocIterator = localHnaAssociations.begin ();
+           assocIterator != localHnaAssociations.end (); assocIterator++)
+        {
+          Association const &localHnaAssoc = *assocIterator;
+          if (localHnaAssoc.networkAddr == tuple.networkAddr && localHnaAssoc.netmask == tuple.netmask)
+            {
+              NS_LOG_DEBUG ("HNA association received from another GW is part of local HNA associations: no route added for network "
+                            << tuple.networkAddr << "/" << tuple.netmask);
+              goToNextAssociationTuple = true;
+            }
+        }
+      if (goToNextAssociationTuple)
+        {
+          continue;
+        }
+
+      RoutingTableEntry gatewayEntry;
+
+      bool gatewayEntryExists = Lookup (tuple.gatewayAddr, gatewayEntry);
+      bool addRoute = false;
+
+      uint32_t routeIndex = 0;
+
+      for (routeIndex = 0; routeIndex < m_hnaRoutingTable->GetNRoutes (); routeIndex++)
+        {
+          Ipv4RoutingTableEntry route = m_hnaRoutingTable->GetRoute (routeIndex);
+          if (route.GetDestNetwork () == tuple.networkAddr
+              && route.GetDestNetworkMask () == tuple.netmask)
+            {
+              break;
+            }
+        }
+
+      if (routeIndex == m_hnaRoutingTable->GetNRoutes ())
+        {
+          addRoute = true;
+        }
+      else if (gatewayEntryExists && m_hnaRoutingTable->GetMetric (routeIndex) > gatewayEntry.distance)
+        {
+          m_hnaRoutingTable->RemoveRoute (routeIndex);
+          addRoute = true;
+        }
+
+      if (addRoute && gatewayEntryExists)
+        {
+          m_hnaRoutingTable->AddNetworkRouteTo (tuple.networkAddr,
+                                                tuple.netmask,
+                                                gatewayEntry.nextAddr,
+                                                gatewayEntry.interface,
+                                                gatewayEntry.distance);
+
+        }
+    }
+
+  NS_LOG_DEBUG ("Node " << m_mainAddress << ": RoutingTableComputation end.");
+  m_routingTableChanged (GetSize ());
+}
+
 
 
 void
@@ -1476,6 +1810,8 @@ RoutingProtocol::ProcessTc (const min_routing::MessageHeader &msg,
       if (topologyTuple != NULL)
         {
           topologyTuple->expirationTime = now + msg.GetVTime ();
+          topologyTuple->nextperioddelay = tc.nextWaittingdelay;   //I add!!!
+          topologyTuple->starttime = tc.StartTime;                 //I add!!!
         }
       else
         {
@@ -1490,6 +1826,8 @@ RoutingProtocol::ProcessTc (const min_routing::MessageHeader &msg,
           topologyTuple.lastAddr = msg.GetOriginatorAddress ();
           topologyTuple.sequenceNumber = tc.ansn;
           topologyTuple.expirationTime = now + msg.GetVTime ();
+          topologyTuple.starttime = tc.StartTime;                           //I add!!!
+          topologyTuple.nextperioddelay = tc.nextWaittingdelay;             //I add!!!
           AddTopologyTuple (topologyTuple);
 
           // Schedules topology tuple deletion
@@ -1964,7 +2302,7 @@ RoutingProtocol::SendTc ()
   thispredelay = Predelay;    //To verify the prediction !!! It can be deleted.
 
   //Write the predicting waitingdelay into the TC format
-  tc.StartTime = Simulator::Now().GetMicroSeconds();
+  tc.StartTime = Simulator::Now().GetSeconds();
   if (Predelay < 0)
   {
 	  Predelay = 0;
@@ -2466,6 +2804,8 @@ RoutingProtocol::PopulateTwoHopNeighborSet (const min_routing::MessageHeader &ms
 
  //Calculate the Metric,I add!
          NeighborTuple *nb_tuple = m_state.FindNeighborTuple (msg.GetOriginatorAddress());
+         if (nb_tuple != NULL)
+         {
          double a=0.3;
          double b=0.5;
          int r=0;
@@ -2489,6 +2829,7 @@ RoutingProtocol::PopulateTwoHopNeighborSet (const min_routing::MessageHeader &ms
       	   nb_tuple->metric = a*r/(exp(-N_willingness*b));
          }
          //NS_LOG_UNCOND("willingness:"<<N_willingness<<"metric:"<<nb_tuple->metric);
+         }
 }
 
 void

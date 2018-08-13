@@ -1,0 +1,1120 @@
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 2798
+Rx Packets = 2440
+Throughput: 29.7077 Kbps
+Delay Expectation+3420112.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 2756
+Rx Packets = 2174
+Throughput: 26.9651 Kbps
+Delay Expectation+5112078.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 2774
+Rx Packets = 1993
+Throughput: 24.0568 Kbps
+Delay Expectation+15947390.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 2744
+Rx Packets = 2139
+Throughput: 25.8192 Kbps
+Delay Expectation+13006622.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 2797
+Rx Packets = 2302
+Throughput: 27.7869 Kbps
+Delay Expectation+5379122.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 2796
+Rx Packets = 2311
+Throughput: 27.9055 Kbps
+Delay Expectation+14397757.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 2717
+Rx Packets = 2129
+Throughput: 25.9302 Kbps
+Delay Expectation+10691920.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 2795
+Rx Packets = 2196
+Throughput: 26.5263 Kbps
+Delay Expectation+2974108.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 2588
+Rx Packets = 1871
+Throughput: 22.6249 Kbps
+Delay Expectation+8563270.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 2751
+Rx Packets = 2437
+Throughput: 29.6605 Kbps
+Delay Expectation+5024108.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 2424
+Rx Packets = 1267
+Throughput: 15.321 Kbps
+Delay Expectation+10621052.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 2706
+Rx Packets = 2334
+Throughput: 28.4375 Kbps
+Delay Expectation+1351511.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 2665
+Rx Packets = 1733
+Throughput: 20.9532 Kbps
+Delay Expectation+11270893.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 2792
+Rx Packets = 2489
+Throughput: 30.098 Kbps
+Delay Expectation+4061355.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 2792
+Rx Packets = 2331
+Throughput: 28.1872 Kbps
+Delay Expectation+4090578.0ns
+PDR: 0.786062
+Receive Packets: 32146
+Delay Expectation: 7ms
+Throughput: 389.98
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 639
+Rx Packets = 566
+Throughput: 9.6477 Kbps
+Delay Expectation+927327.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 639
+Rx Packets = 595
+Throughput: 10.142 Kbps
+Delay Expectation+1071405.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 638
+Rx Packets = 619
+Throughput: 10.5677 Kbps
+Delay Expectation+805909.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 638
+Rx Packets = 597
+Throughput: 10.1921 Kbps
+Delay Expectation+669474.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 638
+Rx Packets = 573
+Throughput: 9.78235 Kbps
+Delay Expectation+2718855.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 638
+Rx Packets = 599
+Throughput: 10.2262 Kbps
+Delay Expectation+643396.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 638
+Rx Packets = 614
+Throughput: 10.4822 Kbps
+Delay Expectation+843274.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 637
+Rx Packets = 600
+Throughput: 10.2594 Kbps
+Delay Expectation+897682.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 636
+Rx Packets = 612
+Throughput: 10.4808 Kbps
+Delay Expectation+1610750.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 636
+Rx Packets = 618
+Throughput: 10.5838 Kbps
+Delay Expectation+901936.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 636
+Rx Packets = 533
+Throughput: 9.12805 Kbps
+Delay Expectation+1267766.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 636
+Rx Packets = 546
+Throughput: 9.35068 Kbps
+Delay Expectation+4506275.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 636
+Rx Packets = 622
+Throughput: 10.6523 Kbps
+Delay Expectation+497493.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 636
+Rx Packets = 635
+Throughput: 10.875 Kbps
+Delay Expectation+796005.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 636
+Rx Packets = 554
+Throughput: 9.4877 Kbps
+Delay Expectation+9490545.0ns
+PDR: 0.929476
+Receive Packets: 8883
+Delay Expectation: 1ms
+Throughput: 151.858
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 1598
+Rx Packets = 1381
+Throughput: 10.539 Kbps
+Delay Expectation+912893.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 1597
+Rx Packets = 1326
+Throughput: 10.346 Kbps
+Delay Expectation+1184899.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 1477
+Rx Packets = 785
+Throughput: 6.12876 Kbps
+Delay Expectation+4809765.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 1597
+Rx Packets = 1244
+Throughput: 9.49943 Kbps
+Delay Expectation+10273370.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 1594
+Rx Packets = 914
+Throughput: 6.98388 Kbps
+Delay Expectation+4962435.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 1503
+Rx Packets = 1006
+Throughput: 7.68689 Kbps
+Delay Expectation+10447556.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 1596
+Rx Packets = 1259
+Throughput: 10.236 Kbps
+Delay Expectation+5544422.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 1594
+Rx Packets = 1152
+Throughput: 8.81278 Kbps
+Delay Expectation+3136850.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 1338
+Rx Packets = 569
+Throughput: 4.36143 Kbps
+Delay Expectation+51271761.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 1591
+Rx Packets = 1359
+Throughput: 10.4168 Kbps
+Delay Expectation+5039439.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 1259
+Rx Packets = 626
+Throughput: 4.85307 Kbps
+Delay Expectation+11262588.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 1557
+Rx Packets = 779
+Throughput: 5.97482 Kbps
+Delay Expectation+18213480.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 1518
+Rx Packets = 959
+Throughput: 7.53551 Kbps
+Delay Expectation+23310610.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 1590
+Rx Packets = 1495
+Throughput: 11.4664 Kbps
+Delay Expectation+2454496.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 1552
+Rx Packets = 1271
+Throughput: 10.1168 Kbps
+Delay Expectation+7552698.0ns
+PDR: 0.702278
+Receive Packets: 16125
+Delay Expectation: 8ms
+Throughput: 124.958
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 3197
+Rx Packets = 2530
+Throughput: 19.2956 Kbps
+Delay Expectation+7109961.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 3195
+Rx Packets = 2758
+Throughput: 21.0422 Kbps
+Delay Expectation+23901663.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 2401
+Rx Packets = 1322
+Throughput: 12.6063 Kbps
+Delay Expectation+8354412.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 3191
+Rx Packets = 1968
+Throughput: 15.0234 Kbps
+Delay Expectation+15630437.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 2978
+Rx Packets = 1922
+Throughput: 14.6813 Kbps
+Delay Expectation+31222871.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 3072
+Rx Packets = 1746
+Throughput: 13.3339 Kbps
+Delay Expectation+60043347.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 3184
+Rx Packets = 2602
+Throughput: 20.7263 Kbps
+Delay Expectation+28621621.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 3188
+Rx Packets = 2034
+Throughput: 15.5564 Kbps
+Delay Expectation+32267951.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 3176
+Rx Packets = 1480
+Throughput: 11.3407 Kbps
+Delay Expectation+19220278.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 3182
+Rx Packets = 2718
+Throughput: 20.827 Kbps
+Delay Expectation+23353354.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 2616
+Rx Packets = 1123
+Throughput: 12.0558 Kbps
+Delay Expectation+23169586.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 3175
+Rx Packets = 1414
+Throughput: 10.8589 Kbps
+Delay Expectation+23563525.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 3102
+Rx Packets = 1725
+Throughput: 13.5457 Kbps
+Delay Expectation+46503895.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 3180
+Rx Packets = 2732
+Throughput: 20.9475 Kbps
+Delay Expectation+9517498.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 3102
+Rx Packets = 2351
+Throughput: 18.6423 Kbps
+Delay Expectation+49885978.0ns
+PDR: 0.662291
+Receive Packets: 30425
+Delay Expectation: 26ms
+Throughput: 240.483
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 793
+Rx Packets = 671
+Throughput: 17.7367 Kbps
+Delay Expectation+1241923.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 798
+Rx Packets = 665
+Throughput: 17.9834 Kbps
+Delay Expectation+1525479.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 677
+Rx Packets = 389
+Throughput: 10.5196 Kbps
+Delay Expectation+2206236.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 772
+Rx Packets = 580
+Throughput: 15.3504 Kbps
+Delay Expectation+6786332.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 773
+Rx Packets = 533
+Throughput: 14.1064 Kbps
+Delay Expectation+3407830.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 724
+Rx Packets = 523
+Throughput: 13.8419 Kbps
+Delay Expectation+16548695.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 798
+Rx Packets = 676
+Throughput: 18.3987 Kbps
+Delay Expectation+12090482.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 797
+Rx Packets = 553
+Throughput: 14.6541 Kbps
+Delay Expectation+1544823.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 742
+Rx Packets = 303
+Throughput: 8.0496 Kbps
+Delay Expectation+18057677.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 795
+Rx Packets = 674
+Throughput: 17.9056 Kbps
+Delay Expectation+1265043.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 587
+Rx Packets = 300
+Throughput: 8.06111 Kbps
+Delay Expectation+3624551.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 795
+Rx Packets = 340
+Throughput: 9.03248 Kbps
+Delay Expectation+21623941.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 760
+Rx Packets = 490
+Throughput: 13.3533 Kbps
+Delay Expectation+26884060.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 795
+Rx Packets = 719
+Throughput: 19.101 Kbps
+Delay Expectation+2411450.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 795
+Rx Packets = 659
+Throughput: 18.1663 Kbps
+Delay Expectation+10231582.0ns
+PDR: 0.708271
+Receive Packets: 8075
+Delay Expectation: 7ms
+Throughput: 216.26
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 3197
+Rx Packets = 2391
+Throughput: 63.1226 Kbps
+Delay Expectation+11410207.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 3101
+Rx Packets = 2593
+Throughput: 70.189 Kbps
+Delay Expectation+33199872.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 2603
+Rx Packets = 1404
+Throughput: 46.4181 Kbps
+Delay Expectation+12991877.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 3194
+Rx Packets = 1940
+Throughput: 51.2625 Kbps
+Delay Expectation+19620922.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 2988
+Rx Packets = 1660
+Throughput: 43.7821 Kbps
+Delay Expectation+51495818.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 3004
+Rx Packets = 1935
+Throughput: 51.1642 Kbps
+Delay Expectation+71388112.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 3192
+Rx Packets = 2620
+Throughput: 72.0835 Kbps
+Delay Expectation+31821070.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 3165
+Rx Packets = 2389
+Throughput: 63.2464 Kbps
+Delay Expectation+34634740.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 2573
+Rx Packets = 1002
+Throughput: 26.5776 Kbps
+Delay Expectation+30046665.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 3182
+Rx Packets = 2562
+Throughput: 67.9551 Kbps
+Delay Expectation+21339221.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 2023
+Rx Packets = 1051
+Throughput: 46.4276 Kbps
+Delay Expectation+51616590.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 2977
+Rx Packets = 1819
+Throughput: 48.2775 Kbps
+Delay Expectation+60981355.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 3099
+Rx Packets = 1684
+Throughput: 44.6934 Kbps
+Delay Expectation+49224608.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 3180
+Rx Packets = 2846
+Throughput: 75.3484 Kbps
+Delay Expectation+15749617.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 3180
+Rx Packets = 2246
+Throughput: 61.4558 Kbps
+Delay Expectation+57397758.0ns
+PDR: 0.674952
+Receive Packets: 30142
+Delay Expectation: 35ms
+Throughput: 832.004
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 319
+Rx Packets = 261
+Throughput: 6.92509 Kbps
+Delay Expectation+1407865.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 319
+Rx Packets = 263
+Throughput: 7.13509 Kbps
+Delay Expectation+1275552.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 282
+Rx Packets = 150
+Throughput: 4.21866 Kbps
+Delay Expectation+2099687.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 319
+Rx Packets = 248
+Throughput: 6.5801 Kbps
+Delay Expectation+2359024.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 310
+Rx Packets = 190
+Throughput: 5.04121 Kbps
+Delay Expectation+2508831.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 308
+Rx Packets = 189
+Throughput: 5.01472 Kbps
+Delay Expectation+13281333.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 319
+Rx Packets = 257
+Throughput: 7.27634 Kbps
+Delay Expectation+8043731.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 318
+Rx Packets = 227
+Throughput: 6.04193 Kbps
+Delay Expectation+1740784.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 293
+Rx Packets = 126
+Throughput: 3.35369 Kbps
+Delay Expectation+17032099.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 318
+Rx Packets = 274
+Throughput: 7.29291 Kbps
+Delay Expectation+1513989.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 261
+Rx Packets = 124
+Throughput: 3.41903 Kbps
+Delay Expectation+16835538.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 310
+Rx Packets = 144
+Throughput: 3.83277 Kbps
+Delay Expectation+14429111.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 314
+Rx Packets = 219
+Throughput: 5.90344 Kbps
+Delay Expectation+9916738.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 318
+Rx Packets = 287
+Throughput: 7.6389 Kbps
+Delay Expectation+2612313.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 318
+Rx Packets = 249
+Throughput: 7.3714 Kbps
+Delay Expectation+4406875.0ns
+PDR: 0.693472
+Receive Packets: 3208
+Delay Expectation: 5ms
+Throughput: 87.0453
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 319
+Rx Packets = 261
+Throughput: 6.92509 Kbps
+Delay Expectation+1407865.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 319
+Rx Packets = 263
+Throughput: 7.13509 Kbps
+Delay Expectation+1275552.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 282
+Rx Packets = 150
+Throughput: 4.21866 Kbps
+Delay Expectation+2099687.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 319
+Rx Packets = 248
+Throughput: 6.5801 Kbps
+Delay Expectation+2359024.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 310
+Rx Packets = 190
+Throughput: 5.04121 Kbps
+Delay Expectation+2508831.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 308
+Rx Packets = 189
+Throughput: 5.01472 Kbps
+Delay Expectation+13281333.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 319
+Rx Packets = 257
+Throughput: 7.27634 Kbps
+Delay Expectation+8043731.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 318
+Rx Packets = 227
+Throughput: 6.04193 Kbps
+Delay Expectation+1740784.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 293
+Rx Packets = 126
+Throughput: 3.35369 Kbps
+Delay Expectation+17032099.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 318
+Rx Packets = 274
+Throughput: 7.29291 Kbps
+Delay Expectation+1513989.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 261
+Rx Packets = 124
+Throughput: 3.41903 Kbps
+Delay Expectation+16835538.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 310
+Rx Packets = 144
+Throughput: 3.83277 Kbps
+Delay Expectation+14429111.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 314
+Rx Packets = 219
+Throughput: 5.90344 Kbps
+Delay Expectation+9916738.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 318
+Rx Packets = 287
+Throughput: 7.6389 Kbps
+Delay Expectation+2612313.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 318
+Rx Packets = 249
+Throughput: 7.3714 Kbps
+Delay Expectation+4406875.0ns
+PDR: 0.693472
+Receive Packets: 3208
+Delay Expectation: 5ms
+Throughput: 87.0453
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 319
+Rx Packets = 297
+Throughput: 7.88028 Kbps
+Delay Expectation+941947.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 319
+Rx Packets = 275
+Throughput: 7.29649 Kbps
+Delay Expectation+1457156.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 319
+Rx Packets = 187
+Throughput: 4.96166 Kbps
+Delay Expectation+7676400.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 314
+Rx Packets = 253
+Throughput: 6.71279 Kbps
+Delay Expectation+2185720.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 319
+Rx Packets = 250
+Throughput: 6.63319 Kbps
+Delay Expectation+8248788.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 319
+Rx Packets = 242
+Throughput: 6.42091 Kbps
+Delay Expectation+8089254.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 319
+Rx Packets = 319
+Throughput: 8.464 Kbps
+Delay Expectation+949027.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 318
+Rx Packets = 230
+Throughput: 6.12177 Kbps
+Delay Expectation+1606708.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 287
+Rx Packets = 200
+Throughput: 5.35703 Kbps
+Delay Expectation+10449234.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 318
+Rx Packets = 306
+Throughput: 8.14468 Kbps
+Delay Expectation+1558124.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 284
+Rx Packets = 121
+Throughput: 3.25135 Kbps
+Delay Expectation+15913762.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 296
+Rx Packets = 218
+Throughput: 5.80242 Kbps
+Delay Expectation+2069554.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 313
+Rx Packets = 195
+Throughput: 5.67326 Kbps
+Delay Expectation+2622003.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 318
+Rx Packets = 265
+Throughput: 7.05331 Kbps
+Delay Expectation+3086099.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 318
+Rx Packets = 260
+Throughput: 6.92029 Kbps
+Delay Expectation+3156534.0ns
+PDR: 0.773077
+Receive Packets: 3618
+Delay Expectation: 3ms
+Throughput: 96.6934
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 639
+Rx Packets = 594
+Throughput: 15.7111 Kbps
+Delay Expectation+1696931.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 639
+Rx Packets = 526
+Throughput: 13.9125 Kbps
+Delay Expectation+10748978.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 637
+Rx Packets = 383
+Throughput: 10.1462 Kbps
+Delay Expectation+8391549.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 638
+Rx Packets = 515
+Throughput: 13.6429 Kbps
+Delay Expectation+1697026.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 638
+Rx Packets = 484
+Throughput: 12.8217 Kbps
+Delay Expectation+8493910.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 638
+Rx Packets = 494
+Throughput: 13.0866 Kbps
+Delay Expectation+15146386.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 638
+Rx Packets = 638
+Throughput: 16.9014 Kbps
+Delay Expectation+2484498.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 637
+Rx Packets = 470
+Throughput: 12.4704 Kbps
+Delay Expectation+1688148.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 577
+Rx Packets = 393
+Throughput: 10.4932 Kbps
+Delay Expectation+16974135.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 636
+Rx Packets = 614
+Throughput: 16.3169 Kbps
+Delay Expectation+1645541.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 615
+Rx Packets = 279
+Throughput: 7.47313 Kbps
+Delay Expectation+3322485.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 557
+Rx Packets = 425
+Throughput: 11.2942 Kbps
+Delay Expectation+1466834.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 636
+Rx Packets = 393
+Throughput: 11.4143 Kbps
+Delay Expectation+2141549.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 636
+Rx Packets = 518
+Throughput: 13.7656 Kbps
+Delay Expectation+3169839.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 636
+Rx Packets = 492
+Throughput: 13.0746 Kbps
+Delay Expectation+13623240.0ns
+PDR: 0.768117
+Receive Packets: 7218
+Delay Expectation: 5ms
+Throughput: 192.525
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 1278
+Rx Packets = 1182
+Throughput: 31.239 Kbps
+Delay Expectation+3490026.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 1278
+Rx Packets = 1116
+Throughput: 29.4946 Kbps
+Delay Expectation+8653568.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 1254
+Rx Packets = 726
+Throughput: 19.2024 Kbps
+Delay Expectation+19372495.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 1274
+Rx Packets = 973
+Throughput: 25.7354 Kbps
+Delay Expectation+13973382.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 1277
+Rx Packets = 1005
+Throughput: 26.5818 Kbps
+Delay Expectation+6266957.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 1276
+Rx Packets = 950
+Throughput: 25.1468 Kbps
+Delay Expectation+22700186.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 1276
+Rx Packets = 1276
+Throughput: 33.7763 Kbps
+Delay Expectation+1533074.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 1275
+Rx Packets = 902
+Throughput: 23.8949 Kbps
+Delay Expectation+1478734.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 1068
+Rx Packets = 670
+Throughput: 17.8594 Kbps
+Delay Expectation+13145324.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 1272
+Rx Packets = 1226
+Throughput: 32.5549 Kbps
+Delay Expectation+2361044.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 994
+Rx Packets = 419
+Throughput: 11.2053 Kbps
+Delay Expectation+17595883.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 1186
+Rx Packets = 944
+Throughput: 25.0668 Kbps
+Delay Expectation+1670616.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 1261
+Rx Packets = 771
+Throughput: 20.6022 Kbps
+Delay Expectation+18117122.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 1272
+Rx Packets = 1079
+Throughput: 28.6511 Kbps
+Delay Expectation+3507728.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 1272
+Rx Packets = 1049
+Throughput: 27.8548 Kbps
+Delay Expectation+5888809.0ns
+PDR: 0.771782
+Receive Packets: 14288
+Delay Expectation: 8ms
+Throughput: 378.866
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 1598
+Rx Packets = 1500
+Throughput: 39.6249 Kbps
+Delay Expectation+8196925.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 1597
+Rx Packets = 1411
+Throughput: 37.2921 Kbps
+Delay Expectation+2292038.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 1570
+Rx Packets = 795
+Throughput: 21.0142 Kbps
+Delay Expectation+27061696.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 1576
+Rx Packets = 1210
+Throughput: 31.9838 Kbps
+Delay Expectation+12790007.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 1555
+Rx Packets = 1255
+Throughput: 33.1942 Kbps
+Delay Expectation+3535762.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 1596
+Rx Packets = 1215
+Throughput: 32.1362 Kbps
+Delay Expectation+9133731.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 1596
+Rx Packets = 1596
+Throughput: 42.2138 Kbps
+Delay Expectation+2185450.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 1594
+Rx Packets = 1172
+Throughput: 31.0376 Kbps
+Delay Expectation+3962903.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 1507
+Rx Packets = 1076
+Throughput: 28.6744 Kbps
+Delay Expectation+20697093.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 1591
+Rx Packets = 1517
+Throughput: 40.2503 Kbps
+Delay Expectation+6203698.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 1418
+Rx Packets = 603
+Throughput: 17.2697 Kbps
+Delay Expectation+9586717.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 1587
+Rx Packets = 1156
+Throughput: 30.6913 Kbps
+Delay Expectation+10749539.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 1590
+Rx Packets = 915
+Throughput: 25.7854 Kbps
+Delay Expectation+36271339.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 1588
+Rx Packets = 1247
+Throughput: 33.107 Kbps
+Delay Expectation+3986466.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 1590
+Rx Packets = 1385
+Throughput: 36.771 Kbps
+Delay Expectation+11029362.0ns
+PDR: 0.766484
+Receive Packets: 18053
+Delay Expectation: 9ms
+Throughput: 481.046
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 1918
+Rx Packets = 1749
+Throughput: 46.1879 Kbps
+Delay Expectation+3425907.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 1917
+Rx Packets = 1689
+Throughput: 44.626 Kbps
+Delay Expectation+4183655.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 1865
+Rx Packets = 1109
+Throughput: 29.2335 Kbps
+Delay Expectation+24092833.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 1880
+Rx Packets = 1559
+Throughput: 41.2132 Kbps
+Delay Expectation+12987242.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 1915
+Rx Packets = 1391
+Throughput: 36.7914 Kbps
+Delay Expectation+2483861.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 1915
+Rx Packets = 1381
+Throughput: 36.4313 Kbps
+Delay Expectation+17402228.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 1915
+Rx Packets = 1915
+Throughput: 50.6513 Kbps
+Delay Expectation+1753841.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 1913
+Rx Packets = 1452
+Throughput: 38.4449 Kbps
+Delay Expectation+16966955.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 1727
+Rx Packets = 1317
+Throughput: 35.1073 Kbps
+Delay Expectation+13513317.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 1909
+Rx Packets = 1741
+Throughput: 46.1936 Kbps
+Delay Expectation+4152945.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 1654
+Rx Packets = 701
+Throughput: 18.7466 Kbps
+Delay Expectation+13090109.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 1859
+Rx Packets = 1234
+Throughput: 32.7588 Kbps
+Delay Expectation+10658603.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 1908
+Rx Packets = 1174
+Throughput: 31.4622 Kbps
+Delay Expectation+9957901.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 1908
+Rx Packets = 1636
+Throughput: 43.6806 Kbps
+Delay Expectation+4169783.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 1908
+Rx Packets = 1594
+Throughput: 42.3155 Kbps
+Delay Expectation+5403676.0ns
+PDR: 0.769877
+Receive Packets: 21642
+Delay Expectation: 8ms
+Throughput: 573.844
+Protocol:4
+Flow ID: 1 Src Addr 10.1.1.26 Dst Addr 10.1.1.11
+Tx Packets = 1278
+Rx Packets = 1182
+Throughput: 31.239 Kbps
+Delay Expectation+3490026.0ns
+Flow ID: 2 Src Addr 10.1.1.20 Dst Addr 10.1.1.5
+Tx Packets = 1278
+Rx Packets = 1116
+Throughput: 29.4946 Kbps
+Delay Expectation+8653568.0ns
+Flow ID: 3 Src Addr 10.1.1.23 Dst Addr 10.1.1.8
+Tx Packets = 1254
+Rx Packets = 726
+Throughput: 19.2024 Kbps
+Delay Expectation+19372495.0ns
+Flow ID: 4 Src Addr 10.1.1.22 Dst Addr 10.1.1.7
+Tx Packets = 1274
+Rx Packets = 973
+Throughput: 25.7354 Kbps
+Delay Expectation+13973382.0ns
+Flow ID: 5 Src Addr 10.1.1.21 Dst Addr 10.1.1.6
+Tx Packets = 1277
+Rx Packets = 1005
+Throughput: 26.5818 Kbps
+Delay Expectation+6266957.0ns
+Flow ID: 6 Src Addr 10.1.1.28 Dst Addr 10.1.1.13
+Tx Packets = 1276
+Rx Packets = 950
+Throughput: 25.1468 Kbps
+Delay Expectation+22700186.0ns
+Flow ID: 7 Src Addr 10.1.1.18 Dst Addr 10.1.1.3
+Tx Packets = 1276
+Rx Packets = 1276
+Throughput: 33.7763 Kbps
+Delay Expectation+1533074.0ns
+Flow ID: 8 Src Addr 10.1.1.19 Dst Addr 10.1.1.4
+Tx Packets = 1275
+Rx Packets = 902
+Throughput: 23.8949 Kbps
+Delay Expectation+1478734.0ns
+Flow ID: 9 Src Addr 10.1.1.29 Dst Addr 10.1.1.14
+Tx Packets = 1068
+Rx Packets = 670
+Throughput: 17.8594 Kbps
+Delay Expectation+13145324.0ns
+Flow ID: 10 Src Addr 10.1.1.27 Dst Addr 10.1.1.12
+Tx Packets = 1272
+Rx Packets = 1226
+Throughput: 32.5549 Kbps
+Delay Expectation+2361044.0ns
+Flow ID: 11 Src Addr 10.1.1.17 Dst Addr 10.1.1.2
+Tx Packets = 994
+Rx Packets = 419
+Throughput: 11.2053 Kbps
+Delay Expectation+17595883.0ns
+Flow ID: 12 Src Addr 10.1.1.16 Dst Addr 10.1.1.1
+Tx Packets = 1186
+Rx Packets = 944
+Throughput: 25.0668 Kbps
+Delay Expectation+1670616.0ns
+Flow ID: 13 Src Addr 10.1.1.25 Dst Addr 10.1.1.10
+Tx Packets = 1261
+Rx Packets = 771
+Throughput: 20.6022 Kbps
+Delay Expectation+18117122.0ns
+Flow ID: 14 Src Addr 10.1.1.24 Dst Addr 10.1.1.9
+Tx Packets = 1272
+Rx Packets = 1079
+Throughput: 28.6511 Kbps
+Delay Expectation+3507728.0ns
+Flow ID: 15 Src Addr 10.1.1.30 Dst Addr 10.1.1.15
+Tx Packets = 1272
+Rx Packets = 1049
+Throughput: 27.8548 Kbps
+Delay Expectation+5888809.0ns
+PDR: 0.771782
+Receive Packets: 14288
+Delay Expectation: 8ms
+Throughput: 378.866

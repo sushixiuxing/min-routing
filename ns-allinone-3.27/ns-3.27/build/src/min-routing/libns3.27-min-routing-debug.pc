@@ -1,0 +1,10 @@
+prefix=/usr/local
+libdir=/usr/local/lib
+includedir=/usr/local/include/ns3.27
+
+Name: libns3-min-routing
+Description: ns-3 module ns3-min-routing
+Version: 3.27
+Libs: -L${libdir} -Wl,-Bdynamic -lns3.27-min-routing-debug
+Cflags: -I${includedir}
+Requires: libns3.27-internet-debug

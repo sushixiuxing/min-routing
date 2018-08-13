@@ -117,7 +117,7 @@ RoutingExperiment::RoutingExperiment ()
     packetsReceived (0),
     m_CSVfileName ("minmanet-routing.output.csv"),
     m_traceMobility (false),
-    m_protocol (4) //  1-Min_Routing; 4-OLSR
+    m_protocol (1) //  1-Min_Routing;3-DSDV; 4-OLSR;
 {
 }
 
@@ -238,11 +238,11 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
 
   int nWifis = 30;//originl:50
 
-  double TotalTime = 400.0;
+  double TotalTime = 200.0;
   std::string rate ("4096Bps");
   std::string phyMode ("DsssRate11Mbps");
   std::string tr_name ("manet-routing-compare");
-  int nodeSpeed = 20; //in m/s
+  int nodeSpeed = 25; //in m/s
   int nodePause = 0; //in s
   double Range=250;    //the range of the communication,in m, I defined it.
   m_protocolName = "protocol";
@@ -369,7 +369,7 @@ RoutingExperiment::Run (int nSinks, double txp, std::string CSVfileName)
       Ptr<UniformRandomVariable> var = CreateObject<UniformRandomVariable> ();
       ApplicationContainer temp = onoff1.Install (adhocNodes.Get (i + nSinks));
       temp.Start (Seconds (var->GetValue (30.0,31.0)));
-      temp.Stop (Seconds (380));//I modified it!!
+      temp.Stop (Seconds (190));//I modified it!!
     }
 
 

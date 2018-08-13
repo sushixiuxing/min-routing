@@ -215,6 +215,7 @@ RoutingProtocol::RoutingProtocol ()
   Ema(0),
   Dma(0),
   thispredelay(0),
+  Predelay(0),
   m_helloTimer (Timer::CANCEL_ON_DESTROY),
   m_tcTimer (Timer::CANCEL_ON_DESTROY),
   m_midTimer (Timer::CANCEL_ON_DESTROY),
@@ -928,44 +929,44 @@ RoutingProtocol::MprComputation ()
       // reachability, select the node as MPR whose D(y) is
       // greater. Remove the nodes from N2 which are now covered
       // by a node in the MPR set.
-     /* NeighborTuple const *max = NULL;
-      int max_r = 0;
-      for (std::set<int>::iterator it = rs.begin (); it != rs.end (); it++)
-        {
-          int r = *it;
-          if (r == 0)
-            {
-              continue;
-            }
-          for (std::vector<const NeighborTuple *>::iterator it2 = reachability[r].begin ();
-               it2 != reachability[r].end (); it2++)
-            {
-
-              const NeighborTuple *nb_tuple = *it2;
-              if (max == NULL || nb_tuple->willingness > max->willingness)
-                {
-                  max = nb_tuple;
-                  max_r = r;
-                }
-
-              else if (nb_tuple->willingness == max->willingness)
-                {
-                  if (r > max_r)
-                    {
-                      max = nb_tuple;
-                      max_r = r;
-                    }
-                  else if (r == max_r)
-                    {
-                      if (Degree (*nb_tuple) > Degree (*max))
-                        {
-                          max = nb_tuple;
-                          max_r = r;
-                        }
-                    }
-                }
-            }
-        }*/         //I delete it, if use ,release it.
+//     NeighborTuple const *max = NULL;
+//      int max_r = 0;
+//      for (std::set<int>::iterator it = rs.begin (); it != rs.end (); it++)
+//        {
+//          int r = *it;
+//          if (r == 0)
+//            {
+//              continue;
+//            }
+//          for (std::vector<const NeighborTuple *>::iterator it2 = reachability[r].begin ();
+//               it2 != reachability[r].end (); it2++)
+//            {
+//
+//              const NeighborTuple *nb_tuple = *it2;
+//              if (max == NULL || nb_tuple->willingness > max->willingness)
+//                {
+//                  max = nb_tuple;
+//                  max_r = r;
+//                }
+//
+//              else if (nb_tuple->willingness == max->willingness)
+//                {
+//                  if (r > max_r)
+//                    {
+//                      max = nb_tuple;
+//                      max_r = r;
+//                    }
+//                  else if (r == max_r)
+//                    {
+//                      if (Degree (*nb_tuple) > Degree (*max))
+//                        {
+//                          max = nb_tuple;
+//                          max_r = r;
+//                        }
+//                    }
+//                }
+//            }
+//        }        //I delete it, if use ,release it.
 
     // Use the metric to decide which neighbor shoule be choosed as mpr; I add!
       NeighborTuple const *max = NULL;
@@ -1476,54 +1477,134 @@ RoutingProtocol::RoutingTableComputation ()
       // ...and such that there exist at least one entry in the 2-hop
       // neighbor set where N_neighbor_main_addr correspond to a
       // neighbor node with willingness different of WILL_NEVER...
-      bool nb2hopOk = false;
-      for (NeighborSet::const_iterator neighbor = neighborSet.begin ();
-           neighbor != neighborSet.end (); neighbor++)
-        {
-          if (neighbor->neighborMainAddr == nb2hop_tuple.neighborMainAddr
-              && neighbor->willingness != Min_Routing_WILL_NEVER)
-            {
-              nb2hopOk = true;
-              break;
-            }
-        }
-      if (!nb2hopOk)
-        {
-          NS_LOG_LOGIC ("Two-hop neighbor tuple skipped: 2-hop neighbor "
-                        << nb2hop_tuple.twoHopNeighborAddr
-                        << " is attached to neighbor " << nb2hop_tuple.neighborMainAddr
-                        << ", which was not found in the Neighbor Set.");
-          continue;
-        }
 
-      // one selects one 2-hop tuple and creates one entry in the routing table with:
-      //                R_dest_addr  =  the main address of the 2-hop neighbor;
-      //                R_next_addr  = the R_next_addr of the entry in the
-      //                               routing table with:
-      //                                   R_dest_addr == N_neighbor_main_addr
-      //                                                  of the 2-hop tuple;
-      //                R_dist       = 2;
-      //                R_iface_addr = the R_iface_addr of the entry in the
-      //                               routing table with:
-      //                                   R_dest_addr == N_neighbor_main_addr
-      //                                                  of the 2-hop tuple;
-      RoutingTableEntry entry;
-      bool foundEntry = Lookup (nb2hop_tuple.neighborMainAddr, entry);
-      if (foundEntry)
-        {
-          NS_LOG_LOGIC ("Adding routing entry for two-hop neighbor.");
-          AddEntry (nb2hop_tuple.twoHopNeighborAddr,
-                    entry.nextAddr,
-                    entry.interface,
-                    2);
-        }
-      else
-        {
-          NS_LOG_LOGIC ("NOT adding routing entry for two-hop neighbor ("
-                        << nb2hop_tuple.twoHopNeighborAddr
-                        << " not found in the routing table)");
-        }
-    }
+//      //I add!!! To find the neighbor with smallest waiting delay to two hop neighbor!!!! it is right
+//      bool nb2hopOk = false;
+//              for (NeighborSet::const_iterator neighbor = neighborSet.begin ();
+//                     neighbor != neighborSet.end (); neighbor++)
+//              {
+//                  if (neighbor->neighborMainAddr == nb2hop_tuple.neighborMainAddr
+//                        && neighbor->willingness != Min_Routing_WILL_NEVER)
+//                  {
+//                         nb2hopOk = true;
+//                         break;
+//                  }
+//              }
+//
+//      const TwoHopNeighborSet &subtwoHop = m_state.GetTwoHopNeighbors();
+//      TwoHopNeighborTuple const *mindelaytuple = NULL;
+//      bool sub2Ok = false;
+//      for (TwoHopNeighborSet::const_iterator it2 = subtwoHop.begin();
+//    		  it2 != subtwoHop.end(); it2++)
+//      {
+//    	  TwoHopNeighborTuple const &sub2tuple = *it2;
+//    	  if (sub2tuple.twoHopNeighborAddr == nb2hop_tuple.twoHopNeighborAddr && nb2hopOk == true)
+//    	  {
+//    		  for (NeighborSet::const_iterator neighbor = neighborSet.begin ();
+//    		                       neighbor != neighborSet.end (); neighbor++)
+//    		                {
+//    		                    if (neighbor->neighborMainAddr == sub2tuple.neighborMainAddr
+//    		                          && neighbor->willingness != Min_Routing_WILL_NEVER)
+//    		                    {
+//    		                           sub2Ok = true;
+//    		                           break;
+//    		                    }
+//    		                }
+//
+//              if ((mindelaytuple == NULL || sub2tuple.waitingdelay < mindelaytuple->waitingdelay) && sub2Ok)
+//              {
+//            	  mindelaytuple = &sub2tuple;
+//              }
+//    	  }
+//           continue;
+//      }
+//      if (!nb2hopOk)
+//        {
+//          NS_LOG_LOGIC ("Two-hop neighbor tuple skipped: 2-hop neighbor "
+//                        << nb2hop_tuple.twoHopNeighborAddr
+//                        << " is attached to neighbor " << nb2hop_tuple.neighborMainAddr
+//                        << ", which was not found in the Neighbor Set.");
+//          continue;
+//        }
+//
+//      // one selects one 2-hop tuple and creates one entry in the routing table with:
+//      //                R_dest_addr  =  the main address of the 2-hop neighbor;
+//      //                R_next_addr  = the R_next_addr of the entry in the
+//      //                               routing table with:
+//      //                                   R_dest_addr == N_neighbor_main_addr
+//      //                                                  of the 2-hop tuple;
+//      //                R_dist       = 2;
+//      //                R_iface_addr = the R_iface_addr of the entry in the
+//      //                               routing table with:
+//      //                                   R_dest_addr == N_neighbor_main_addr
+//      //                                                  of the 2-hop tuple;
+//      RoutingTableEntry entry;
+//      bool foundEntry = Lookup (mindelaytuple->neighborMainAddr, entry);
+//      if (foundEntry)
+//        {
+//          NS_LOG_LOGIC ("Adding routing entry for two-hop neighbor.");
+//          AddEntry (nb2hop_tuple.twoHopNeighborAddr,
+//                    entry.nextAddr,
+//                    entry.interface,
+//                    2);
+//        }
+//      else
+//        {
+//          NS_LOG_LOGIC ("NOT adding routing entry for two-hop neighbor ("
+//                        << nb2hop_tuple.twoHopNeighborAddr
+//                        << " not found in the routing table)");
+//        }
+//    }
+
+
+      bool nb2hopOk = false;
+            for (NeighborSet::const_iterator neighbor = neighborSet.begin ();
+                 neighbor != neighborSet.end (); neighbor++)
+              {
+                if (neighbor->neighborMainAddr == nb2hop_tuple.neighborMainAddr
+                    && neighbor->willingness != Min_Routing_WILL_NEVER)
+                  {
+                    nb2hopOk = true;
+                    break;
+                  }
+              }
+            if (!nb2hopOk)
+              {
+                NS_LOG_LOGIC ("Two-hop neighbor tuple skipped: 2-hop neighbor "
+                              << nb2hop_tuple.twoHopNeighborAddr
+                              << " is attached to neighbor " << nb2hop_tuple.neighborMainAddr
+                              << ", which was not found in the Neighbor Set.");
+                continue;
+              }
+
+            // one selects one 2-hop tuple and creates one entry in the routing table with:
+            //                R_dest_addr  =  the main address of the 2-hop neighbor;
+            //                R_next_addr  = the R_next_addr of the entry in the
+            //                               routing table with:
+            //                                   R_dest_addr == N_neighbor_main_addr
+            //                                                  of the 2-hop tuple;
+            //                R_dist       = 2;
+            //                R_iface_addr = the R_iface_addr of the entry in the
+            //                               routing table with:
+            //                                   R_dest_addr == N_neighbor_main_addr
+            //                                                  of the 2-hop tuple;
+            RoutingTableEntry entry;
+            bool foundEntry = Lookup (nb2hop_tuple.neighborMainAddr, entry);
+            if (foundEntry)
+              {
+                NS_LOG_LOGIC ("Adding routing entry for two-hop neighbor.");
+                AddEntry (nb2hop_tuple.twoHopNeighborAddr,
+                          entry.nextAddr,
+                          entry.interface,
+                          2);
+              }
+            else
+              {
+                NS_LOG_LOGIC ("NOT adding routing entry for two-hop neighbor ("
+                              << nb2hop_tuple.twoHopNeighborAddr
+                              << " not found in the routing table)");
+              }
+          }
 
   for (uint32_t h = 2;; h++)
     {
@@ -1564,7 +1645,8 @@ RoutingProtocol::RoutingTableComputation ()
               if (min == NULL || topology_tuple.nextperioddelay < min->nextperioddelay)
               {
             	  min = &topology_tuple;
-            	  minEntry = lastAddrEntry;
+            	  minEntry.nextAddr = lastAddrEntry.nextAddr;
+            	  minEntry.interface =lastAddrEntry.interface;
             	  continue;
               }
             }
@@ -1785,6 +1867,26 @@ RoutingProtocol::ProcessTc (const min_routing::MessageHeader &msg,
   if (topologyTuple != NULL)
     {
       return;
+    }
+
+  // I add! To update the waitingdelay in neighbor tuple and two neighbor tuple
+  NeighborTuple *neigh_tuple =
+		  m_state.FindNeighborTuple(msg.GetOriginatorAddress());
+  if (neigh_tuple != NULL)
+  {
+	  neigh_tuple->waitingdelay = tc.nextWaittingdelay;
+  }
+
+  TwoHopNeighborSet &twoHopNeighbors = m_state.GetTwoHopNeighbors ();
+    for (TwoHopNeighborSet::const_iterator it = twoHopNeighbors.begin ();
+    		it != twoHopNeighbors.end(); it++)
+    {
+    	if (it->neighborMainAddr == msg.GetOriginatorAddress())
+    	{
+    	TwoHopNeighborTuple  *twohoptuple =
+    			m_state.FindTwoHopNeighborTuple(msg.GetOriginatorAddress(),it->twoHopNeighborAddr);
+        twohoptuple->waitingdelay = tc.nextWaittingdelay;
+    	}
     }
 
   // 3. All tuples in the topology set where:
@@ -2283,17 +2385,19 @@ RoutingProtocol::SendTc ()
   Time LastPeriodAverageDelay = increasedelay/increasepackets;
 
   //Use LastPeriodAverageDealy to predict the next period waiting delay
-  double a=0.5, b=0.5;
+  double a=0.7, b=0.75;
   if (Simulator::Now() == NanoSeconds(+35000000000))
   {
 	  Ema = LastPeriodAverageDelay.GetMicroSeconds();
   }
   double Etx = LastPeriodAverageDelay.GetMicroSeconds()*a + Ema*(1-a);
   double Dtx = b*(Etx-Ema) + (1-b)*Dma;
-  double Predelay = Etx + Dtx;       //The next TC period waiting delay!!!
-  NS_LOG_UNCOND("SimulatonTime"<<Simulator::Now()<<"  "<<"Node:"<<m_ipv4->GetObject<Node>()->GetId()
+  Predelay = Etx + Dtx;       //The next TC period waiting delay!!!
+  if (m_ipv4 -> GetObject<Node>()->GetId() == 10)
+  {
+  NS_LOG_UNCOND("SimulatonTime:"<<Simulator::Now().GetSeconds()<<"s  "<<"Node:"<<m_ipv4->GetObject<Node>()->GetId()
 		 <<"  "<<"AverageWaitingdelay:"<<LastPeriodAverageDelay.GetMicroSeconds()<<"  PredictingDealy:"<<thispredelay);
-
+  }
   //use nowtotaldelay and nowtotalpackets to update totalwaitingdealy and totalpackets
   totalwaitingdelay = nowtotaldelay;
   totalpackets = nowtotalpackets;
@@ -2305,14 +2409,14 @@ RoutingProtocol::SendTc ()
   tc.StartTime = Simulator::Now().GetSeconds();
   if (Predelay < 0)
   {
-	  Predelay = 0;
+	  Predelay = -Predelay;
   }
   tc.nextWaittingdelay = round(Predelay);
 
   //I add! To callback the waiting delay and the packets from the wifi-mac
 //  Callback<Time,empty> waitingdelay;
 //  //WifiMacQueue totaldelay;
-//  waitingdelay = MakeCallback(&WifiMacQueue::GettotalWaitingtime,this);
+//  waitingdelay = MakeCallback(&WifiMacQueue::GettotalWaitingtime);
 //  NS_ASSERT(!waitingdelay.IsNull());
 //  Time lastdelay;
 //  lastdelay = waitingdelay();
@@ -2664,12 +2768,12 @@ RoutingProtocol::PopulateNeighborSet (const min_routing::MessageHeader &msg,
        int y_rvel=y_nvel-y_mvel;
        int x_rd=x_npos-x_mpos;                                  //x lable of relative pos
        int y_rd=y_npos-y_mpos;
-       double cos=(x_rd*x_rvel+y_rd*y_rvel)/(d*rvel);      //the angle of the relative pos and relative velocity
+       double cos=-(x_rd*x_rvel+y_rd*y_rvel)/(d*rvel);      //the angle of the relative pos and relative velocity
        if (d > Range)
        {
     	   d=Range;
        }
-       double LLT=(-2*cos*d+sqrt(pow((2*cos*d),mi)-4*(pow(d,mi)-pow((Range),mi))))/(2*rvel);     //calculate the two order function of a variable
+       double LLT=(cos*d+sqrt(pow((Range),mi)-pow(d,mi)*(1-pow(cos,mi))))/rvel;     //calculate the two order function of a variable
        N_willingness=round(LLT+0.5);
 
        if (N_willingness >10)
@@ -3443,7 +3547,7 @@ RoutingProtocol::FindSendEntry (RoutingTableEntry const &entry,
   outEntry = entry;
   while (outEntry.destAddr != outEntry.nextAddr)
     {
-      if (not Lookup (outEntry.nextAddr, outEntry))
+      if (not Lookup (outEntry.nextAddr, outEntry))                //Important!!! show the way to find the route!!!
         {
           return false;
         }
